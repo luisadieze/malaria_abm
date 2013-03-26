@@ -1,0 +1,73 @@
+to mosquitoF-becomes-infectious 
+ ask mosquitoesF with [infected? = true]
+ [set sporogonic-cycle sporogonic-cycle + 1
+  if sporogonic-cycle = sporogony     
+   [set sporogonic-cycle 0
+    set color red
+    set susceptible? false
+    set infected? false                
+    set infectious? true]
+  ]  
+end
+
+to mosquitoF-gets-older 
+  ask mosquitoesF [
+    set mosquitoesF-age mosquitoesF-age + 1 
+    set gonotrophic-time gonotrophic-time + 1 
+    if mosquitoesF-age > mosquitoes-lifespan [ die ]
+    ]
+    ask n-of (int ((count mosquitoesF) * (1 - (exp(-(1 /(- 4.4 + (1.31 * T-Amb) - 0.03 *(T-Amb ^ 2)))))))) mosquitoesF [ die ] ;; 24 es el valor de T. Este debe variar.
+end 
+
+to mosquitoM-gets-older
+  ask mosquitoesM [
+    set mosquitoesM-age MosquitoesM-age + 1 
+    if mosquitoesM-age > mosquitoes-lifespan [ die ]
+    ]
+    ask n-of (int ((count mosquitoesM) * (1 - (exp(-(1 /(- 4.4 + (1.31 * T-Amb) - 0.03 *(T-Amb ^ 2)))))))) mosquitoesM [ die ] ;; 24 es el valor de T. Este debe variar. No s� si para machos tambi�n aplica.   
+end
+
+
+
+
+       ;;;;;;;;;;;;;;;;;;;;;;;;
+       ;; Immature procedure ;;
+       ;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+to eggs-become-larvae
+  ask eggs [
+    set hatching-time hatching-time + 1
+    if hatching-time = hatching [set breed larvae
+                                 set color brown + 2]
+  ] 
+end
+
+
+to larvae-become-pupae
+  ask larvae [
+    set pupation-time pupation-time + 1
+    if pupation-time = pupation [set breed pupae
+                                 set color brown + 3]
+    ]
+end       
+    
+to pupae-become-mosquitoes
+  ask pupae [
+    set emerge-time emerge-time + 1
+    if emerge-time = emerge [ifelse random-float 10 < 5 [set breed mosquitoesM set color black] 
+                                                        [set breed mosquitoesF set color white  
+                                                         set susceptible? true 
+                                                         set infected? false 
+                                                         set infectious? false
+                                                         set n-blood-meal 0]
+                                 ] 
+    ]   
+end
+
+ 
+  
+  ;;ask n-of (int(0.5 * count larvae)) larvae [die]  ;; El 50% de las larvas mueren ::::No sé si así quede bien::::
+  ;;ask n-of (int(0.2 * count pupae)) pupae [die]    ;; El 20% de las pupas mueren ::::No sé si así quede bien::::
+
+    

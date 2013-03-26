@@ -1,0 +1,167 @@
+to mosquitoesM-move
+  
+  ask mosquitoesM [  ifelse any? mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2 
+                    [move-to one-of mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2]  [rt random 360
+                                                                                                                     lt random 360
+                                                                                                                     fd 1]
+                  
+                    ifelse any? mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2 
+                    [move-to one-of mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2]  [rt random 360
+                                                                                                                     lt random 360
+                                                                                                                     fd 1]
+                  
+                    ifelse any? mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2 
+                    [move-to one-of mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2]  [rt random 360
+                                                                                                                     lt random 360
+                                                                                                                     fd 1]
+                  
+                    ifelse any? mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2 
+                    [move-to one-of mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2]  [rt random 360
+                                                                                                                     lt random 360
+                                                                                                                     fd 1]
+                  
+                    ifelse any? mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2 
+                    [move-to one-of mosquitoesF with [n-blood-meal = 0 and spermatheca-full? = false] in-radius 2]  [rt random 360
+                                                                                                                     lt random 360
+                                                                                                                     fd 1]
+               
+                ]
+end      
+
+
+
+
+to mosquitoF-becomes-infectious
+  
+ ask mosquitoesF [ask patch-here[
+  if air-t >= 27 [set sporogony 8] ;7
+  if (air-t >= 23) and (air-t <= 26) [set sporogony 10] ;9         ;; En días. Valores para P.vivax. También están disponibles para
+  if air-t <= 22 [set sporogony 17]]]  ;16                           ;; P. falciparum, P. malariae y P. ovale. 
+  
+   
+ ask mosquitoesF with [infected? = true]
+ [set sporogonic-cycle sporogonic-cycle + 1
+  if sporogonic-cycle = sporogony     
+   [set sporogonic-cycle 0
+    set color red
+    set susceptible? false
+    set infected? false                
+    set infectious? true]
+  ]  
+end
+
+to mosquitoF-gets-older
+  
+  ask mosquitoesF [ask patch-here[
+  if air-t >= 26 [set gonotrophic-cycle 4] ;3
+  if (air-t >= 23) and (air-t <= 25) [set gonotrophic-cycle 5] ;4  ;; En días. La duración es de 2, 3 o 4 días, pero cuando pica se toma como día uno,
+  if air-t <= 22 [set gonotrophic-cycle 6]]] ;5                      ;; entonces va hasta 3er, 4to o 5to día.               
+  
+   
+  ask mosquitoesF [
+    set mosquitoesF-age mosquitoesF-age + 1 
+    if gonotrophic-time != 0 [ set gonotrophic-time gonotrophic-time + 1 ] 
+    if mosquitoesF-age > mosquitoes-lifespan [ die ]
+    if air-t = 40 [die]
+    ]
+  
+   ask mosquitoesF [ask patch-here[
+   ask n-of (int ((count mosquitoesF) * (1 - (exp(-(1 /(- 4.4 + (1.31 * air-t) - 0.03 *(air-t ^ 2)))))))) mosquitoesF [ die ]
+   ]]
+   
+end 
+
+to mosquitoM-gets-older
+  ask mosquitoesM [
+    set mosquitoesM-age MosquitoesM-age + 1 
+    if mosquitoesM-age > mosquitoes-lifespan [ die ]
+    if air-t = 40 [die]
+    ]
+  
+   ask mosquitoesM [ask patch-here[
+   ask n-of (int ((count mosquitoesM) * (1 - (exp(-(1 /(- 4.4 + (1.31 * air-t) - 0.03 *(air-t ^ 2)))))))) mosquitoesM [ die ] ;; No sé si para machos también aplica.
+   ]]
+  
+end
+
+
+       ;;;;;;;;;;;;;;;;;;;;;;;;
+       ;; Immature procedure ;;
+       ;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+to eggs-become-larvae
+
+ ask eggs [ ask patch-here [
+  if air-t >= 30 [set hatching 3] ;2
+  if (air-t >= 26) and (air-t <= 29) [set hatching 4] ;3             ;; En días
+  if (air-t >= 23) and (air-t <= 25) [set hatching 6] ;5  
+  if air-t <= 22 [set hatching 8]]]  ;7   
+
+  ask eggs [
+    set hatching-time hatching-time + 1
+    if hatching-time = hatching [set breed larvae
+                                 set color brown + 2
+                                 set pupation-time 0
+                                 set l-births l-births + 1]
+  ] 
+end
+
+
+to larvae-become-pupae
+  
+  ask larvae [ ask patch-here [
+  if air-t >= 33 [set pupation 10] ;9
+  if (air-t >= 28) and (air-t <= 32) [set pupation 11] ;10            ;; En días
+  if (air-t >= 25) and (air-t <= 27) [set pupation 12] ;11
+  if air-t <= 24 [set pupation 14]]]   ;13     
+  
+  ask larvae [
+    set pupation-time pupation-time + 1
+    if pupation-time = pupation [set breed pupae
+                                 set color brown + 3
+                                 set emerge-time 0
+                                 set p-births p-births + 1]
+    ]
+end       
+    
+to pupae-become-mosquitoes
+
+  ask pupae [ ask patch-here [
+  if air-t >= 27 [set emerge 2] ;1                                 ;; En días
+  if air-t <= 26 [set emerge 3]]] ;2
+
+  ask pupae [
+    set emerge-time emerge-time + 1
+    if emerge-time = emerge [ifelse random-float 10 < 5 [set breed mosquitoesM set color black] 
+                                                        [set breed mosquitoesF set color white  
+                                                         set susceptible? true 
+                                                         set infected? false 
+                                                         set infectious? false
+                                                         set n-blood-meal 0
+                                                         set mosquitoesF-age 0 
+                                                         set gonotrophic-time 0 
+                                                         set n-oviposition 0
+                                                         set spermatheca-full? false]
+                                 ] 
+    ]   
+end
+
+ 
+to immatures-death
+  
+  set e-deaths e-deaths + (int(0.1 * count eggs with [hatching-time = (int (hatching / 2))]))
+  ask n-of (int(0.1 * count eggs with [hatching-time = (int (hatching / 2))])) eggs [die]      ;; El 10% de las larvas mueren ::Revisar los porcentajes::
+  
+ 
+  set l-deaths l-deaths + (int(0.7 * count larvae with [pupation-time = (int (pupation / 2))]))  
+  ask n-of (int(0.7 * count larvae with [pupation-time = (int (pupation / 2))])) larvae [die]  ;; El 10% de las larvas mueren ::Revisar los porcentajes::
+  
+
+  set p-deaths p-deaths + (int(0.2 * count pupae with [emerge-time = (int (emerge / 2))])) 
+  ask n-of (int(0.2 * count pupae with [emerge-time = (int (emerge / 2))])) pupae [die]        ;; El 20% de las pupas mueren ::Revisar los porcentajes::
+
+  
+end  
+
+    

@@ -1,0 +1,24 @@
+to environmental-changes
+  
+  if Air-temp-increase-tmp != Air-temp-increase [  
+    file-open "AirTemp.txt"
+    foreach sort patches
+    [
+      ask ? [set air-t file-read + Air-temp-increase]
+      ]
+    file-close
+    set Air-temp-increase-tmp Air-temp-increase
+    ]
+ 
+ ;----------------------------------------------------------------------------------------------------------------------------------------
+ 
+ ask patches with [water-t != 0] [set water-t 13 + Air-temp-increase]  ;; Pendiente por cambiar por la ecuación.
+  
+end
+
+
+
+
+
+
+

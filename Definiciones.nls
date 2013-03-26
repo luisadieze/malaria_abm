@@ -1,0 +1,77 @@
+globals
+[
+ humans-lifespan          ;;Duración promedio de vida de humanos en días
+ mosquitoes-lifespan      ;;Duración promedio de vida de mosquitos en días
+ schizogony               ;;Duración de la ezquizogonia en días
+ average-infected-period  ;;Período promedio en que se recupera el humano. REVISAR!!!!        
+ average-immune-period    ;;Duración promedio de la inmunidad
+ sporogony                ;;Duración del ciclo esporogónico
+ hatching                 ;;Retardo de la eclosión (no deja poner hatch)
+ pupation                 ;;Retardo de la pupación  
+ emerge                   ;;Retardo de la emergencia
+ gonotrophic-cycle        ;;Tiempo en días que lleva el ciclo gonotrófico
+ 
+ Air-temp-increase-tmp
+
+ e-births                 ;;Número de huevos puestos  
+ e-deaths                 ;;Número de huevos muertos
+ l-births                 ;;Número de huevos puestos  
+ l-deaths                 ;;Número de huevos muertos
+ p-births                 ;;Número de huevos puestos  
+ p-deaths                 ;;Número de huevos muertos
+ 
+ ]
+
+
+
+breed [mosquitoesF mosquitoF]
+breed [mosquitoesM mosquitoM]
+breed [humans human]
+breed [eggs egg]
+breed [larvae larva]
+breed [pupae pupa]
+
+
+
+mosquitoesF-own [susceptible? 
+  infected?                   
+  infectious?                 
+  mosquitoesF-age             ;; Edad en días
+  sporogonic-cycle            ;; Tiempo en días que lleva el proceso esporogónico
+  n-oviposition               ;; Número de oviposiciones por mosquito               
+  n-blood-meal                ;; Número de alimentaciones sanguíneas por mosquito   
+  gonotrophic-time            ;; Tiempo en días que lleva del ciclo gonotrófico 
+  spermatheca-full?
+  ]         
+
+mosquitoesM-own [mosquitoesM-age]         ;; Edad en días 
+
+
+
+humans-own [susceptible?     
+  infected?                  
+  infectious?                
+  immune?                    
+  humans-age                 ;; Edad en días
+  male?                      ;; El humano es de género masculino (si es true)
+  female?                    ;; El humano es de género femenino (si es true)
+  schizogony-time            ;; Tiempo en días que lleva el proceso de esquizogonia  
+  recover-time               ;; Tiempo en días en el que se recupera un humano
+  immunity-time              ;; Tiempo en días que dura la inmunidad 
+  ]           
+
+                          
+eggs-own [hatching-time] 
+
+larvae-own  [pupation-time] 
+
+pupae-own [emerge-time]
+
+patches-own [air-t          ;; Input data
+             water-t        ;; Ecuación  
+             level          ;; Nivel hasta donde "está lleno" el criadero ---> random # (UNIDADES!!!)
+             area           ;; ¿?
+             precipitation  ;; Input data
+             evaporation    ;; Input fata
+                        
+  ]

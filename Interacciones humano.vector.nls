@@ -1,0 +1,210 @@
+to blood-meal-seeking 
+ 
+ ask mosquitoesF [ifelse n-blood-meal < 3 [ifelse any? humans in-radius 4 [move-to one-of humans in-radius 4]  [rt random 360  lt random 360 fd 1 ]] 
+    
+                                          [rt random 360
+                                           lt random 360
+                                           fd 1]
+                 ] 
+ 
+ 
+     ;; Este sería el movimiento del mosquito hembra, contemplando que cada movimiento podría tener una picadura 
+  
+  
+;;-----------------------------------------------------------------------------------------------------------------------------
+  
+  ask mosquitoesF [if gonotrophic-time = 0  [if any? humans in-radius 4 [move-to one-of humans in-radius 4] ]]
+
+;;----------------------------------------------------------------------------------------------------------------------------- 
+
+  ask humans  [ask mosquitoesF-here [if spermatheca-full? = true [set n-blood-meal n-blood-meal + 1 
+                                                                  set gonotrophic-time 1 ]]]
+ 
+  ask mosquitoesF with [infectious? = true] 
+  [ask humans-here [
+     if susceptible? = true
+     [set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false
+      set immune? false]
+      ]
+  ]
+   
+  ask humans with [infectious? = true]
+  [ask mosquitoesF-here [
+      set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false ]
+  ]  
+  
+  
+ ;;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ ask mosquitoesF [ifelse n-blood-meal < 3 [ifelse any? humans in-radius 4 [move-to one-of humans in-radius 4]  [rt random 360  lt random 360 fd 1 ]] 
+    
+                                          [rt random 360
+                                           lt random 360
+                                           fd 1]
+                 ] 
+ 
+ 
+     ;; Este sería el movimiento del mosquito hembra, contemplando que cada movimiento podría tener una picadura 
+  
+  
+;;------------------------------------------------------------------------------------------------------------------------------
+  
+  ask mosquitoesF [if gonotrophic-time >= 4  [if any? humans in-radius 4 [move-to one-of humans in-radius 4] ]]
+
+;;------------------------------------------------------------------------------------------------------------------------------ 
+
+  ask humans  [ask mosquitoesF-here [if spermatheca-full? = true [set n-blood-meal n-blood-meal + 1 
+                                                                  set gonotrophic-time 1 ]]]
+ 
+  ask mosquitoesF with [infectious? = true] 
+  [ask humans-here [
+     if susceptible? = true
+     [set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false
+      set immune? false]
+      ]
+  ]
+   
+  ask humans with [infectious? = true]
+  [ask mosquitoesF-here [
+      set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false ]
+  ]   
+  
+  
+  ;;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ ask mosquitoesF [ifelse n-blood-meal < 3 [ifelse any? humans in-radius 4 [move-to one-of humans in-radius 4]  [rt random 360  lt random 360 fd 1 ]] 
+    
+                                          [rt random 360
+                                           lt random 360
+                                           fd 1]
+                 ] 
+ 
+ 
+     ;; Este sería el movimiento del mosquito hembra, contemplando que cada movimiento podría tener una picadura 
+  
+  
+;;-------------------------------------------------------------------------------------------------------------------------------
+  
+  ask mosquitoesF [if gonotrophic-time >= 4  [if any? humans in-radius 4 [move-to one-of humans in-radius 4] ]]
+
+;;-------------------------------------------------------------------------------------------------------------------------------
+
+  ask humans  [ask mosquitoesF-here [if spermatheca-full? = true [set n-blood-meal n-blood-meal + 1 
+                                                                  set gonotrophic-time 1 ]]]
+ 
+  ask mosquitoesF with [infectious? = true] 
+  [ask humans-here [
+     if susceptible? = true
+     [set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false
+      set immune? false]
+      ]
+  ]
+   
+  ask humans with [infectious? = true]
+  [ask mosquitoesF-here [
+      set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false ]
+  ]  
+  
+  
+  ;;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ ask mosquitoesF [ifelse n-blood-meal < 3 [ifelse any? humans in-radius 4 [move-to one-of humans in-radius 4]  [rt random 360  lt random 360 fd 1 ]] 
+    
+                                          [rt random 360
+                                           lt random 360
+                                           fd 1]
+                 ] 
+ 
+ 
+     ;; Este sería el movimiento del mosquito hembra, contemplando que cada movimiento podría tener una picadura 
+  
+  
+;;--------------------------------------------------------------------------------------------------------------------------------
+  
+  ask mosquitoesF [if gonotrophic-time >= 4  [if any? humans in-radius 4 [move-to one-of humans in-radius 4] ]]
+
+;;--------------------------------------------------------------------------------------------------------------------------------
+
+  ask humans  [ask mosquitoesF-here [if spermatheca-full? = true [set n-blood-meal n-blood-meal + 1 
+                                                                  set gonotrophic-time 1 ]]]
+ 
+  ask mosquitoesF with [infectious? = true] 
+  [ask humans-here [
+     if susceptible? = true
+     [set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false
+      set immune? false]
+      ]
+  ]
+   
+  ask humans with [infectious? = true]
+  [ask mosquitoesF-here [
+      set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false ]
+  ]  
+  
+  
+  ;;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ ask mosquitoesF [ifelse n-blood-meal < 3 [ifelse any? humans in-radius 4 [move-to one-of humans in-radius 4]  [rt random 360  lt random 360 fd 1 ]] 
+    
+                                          [rt random 360
+                                           lt random 360
+                                           fd 1]
+                 ] 
+ 
+ 
+     ;; Este sería el movimiento del mosquito hembra, contemplando que cada movimiento podría tener una picadura 
+  
+  
+;;-------------------------------------------------------------------------------------------------------------------------------
+  
+  ask mosquitoesF [if gonotrophic-time >= 4  [if any? humans in-radius 4 [move-to one-of humans in-radius 4] ]]
+
+;;------------------------------------------------------------------------------------------------------------------------------- 
+
+  ask humans  [ask mosquitoesF-here [if spermatheca-full? = true [set n-blood-meal n-blood-meal + 1 
+                                                                  set gonotrophic-time 1 ]]]
+ 
+  ask mosquitoesF with [infectious? = true] 
+  [ask humans-here [
+     if susceptible? = true
+     [set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false
+      set immune? false]
+      ]
+  ]
+   
+  ask humans with [infectious? = true]
+  [ask mosquitoesF-here [
+      set color yellow
+      set susceptible? false
+      set infected? true                
+      set infectious? false ]
+  ]  
+  
+end

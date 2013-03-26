@@ -1,0 +1,58 @@
+to m-reproduce
+     
+  ask mosquitoesM
+  [
+    ask mosquitoesF-here [if n-blood-meal = 0 [set spermatheca-full? true]]
+  ]
+   
+  ask mosquitoesF [ ask patch-here [
+  if air-t >= 26 [set gonotrophic-cycle 4] ;3
+  if (air-t >= 23) and (air-t <= 25) [set gonotrophic-cycle 5] ;4    ;; En días. La duración es de 2, 3 o 4 días, pero cuando pica se toma como día uno,
+  if air-t <= 22 [set gonotrophic-cycle 6]]] ;5                      ;; entonces va hasta 3er, 4to o 5to día.               
+  
+ 
+  ask mosquitoesF        
+                         [if gonotrophic-time = gonotrophic-cycle [if n-oviposition = 0                      
+                         [set n-oviposition n-oviposition + 1
+                          set gonotrophic-time 0 
+                          move-to one-of patches in-radius 10 with [pcolor = cyan] 
+                          hatch 120 [set breed eggs  ;; 120 huevos aprox en la primera postura (?)
+                          set color brown - 2
+                          set hatching-time 0]
+                          set e-births e-births + 120]] 
+  
+  
+                          if gonotrophic-time = gonotrophic-cycle [if n-oviposition = 1                      
+                         [set n-oviposition n-oviposition + 1 
+                          move-to one-of patches in-radius 10 with [pcolor = cyan] 
+                          hatch 100 [set breed eggs  ;; 100 huevos aprox en la segunda postura (?)
+                          set color brown - 2
+                          set hatching-time 0]
+                          set e-births e-births + 100]]
+                         
+                         
+                         if gonotrophic-time = gonotrophic-cycle 
+                         [if n-oviposition = 2                       
+                         [set n-oviposition n-oviposition + 1 
+                          move-to one-of patches in-radius 10 with [pcolor = cyan] 
+                          hatch 80 [set breed eggs  ;; 80 huevos aprox en la tercera postura (?)
+                          set color brown - 2
+                          set hatching-time 0]
+                          set e-births e-births + 80]
+                         ]
+                         
+                          if gonotrophic-time = gonotrophic-cycle 
+                         [ if n-oviposition = 3                       
+                         [set n-oviposition n-oviposition + 1 
+                          move-to one-of patches in-radius 10 with [pcolor = cyan] 
+                          hatch 60 [set breed eggs  ;; 60 huevos aprox en la tercera postura (?)
+                          set color brown - 2
+                          set hatching-time 0]
+                          set e-births e-births + 60]
+                         ]
+                      ]
+                         
+   
+end 
+
+    

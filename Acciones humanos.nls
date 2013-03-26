@@ -1,0 +1,54 @@
+to humans-move ;; Describir la manera del movimiento!!!
+  ask humans [rt random 360 lt random 360 fd 2]
+  ask humans [rt random 360 lt random 360 fd 2]
+  ask humans [rt random 360 lt random 360 fd 2]
+  ask humans [rt random 360 lt random 360 fd 2]
+  ask humans [rt random 360 lt random 360 fd 2]
+  
+end
+
+to human-becomes-infectious 
+ ask humans with [infected? = true]
+ [ set schizogony-time schizogony-time + 1
+   if schizogony-time = schizogony   
+     [set schizogony-time 0
+      set color red
+      set susceptible? false
+      set infected? false                
+      set infectious? true
+      set immune? false]
+       ] 
+end
+
+to human-becomes-immune
+  ask humans with [infectious? = true]
+  [set recover-time recover-time + 1
+   if recover-time = average-infected-period
+   [ set recover-time 0
+     set color gray  
+     set susceptible? false
+     set infected? false                
+     set infectious? false
+     set immune? true]
+  ]
+end
+
+to human-becomes-susceptible
+  ask humans with [immune? = true]
+  [set immunity-time immunity-time + 1
+   if immunity-time = average-immune-period
+   [set immunity-time 0
+    set color white    
+    set susceptible? true
+    set infected? false                
+    set infectious? false
+    set immune? false]
+  ]  
+end
+
+to human-gets-older
+   ask humans [
+    set humans-age humans-age + 1 
+    if humans-age > humans-lifespan [ die ]
+   ]
+end

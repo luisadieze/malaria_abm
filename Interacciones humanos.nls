@@ -1,0 +1,19 @@
+to h-reproduce
+   ask humans with [ male? = true ] 
+   
+   [if (humans-age > 3650) and (humans-age < 19710) ;;Si los hombres son mayores a 10 años y menores de 54
+                           
+                         [ask humans-here with [ female? = true ] 
+                         [if humans-age > 3650 [if humans-age < 19710;;Si las mujeres son mayores a 10 años y menores de 54
+                                               [if random-float 10 < 2 [hatch 1 ;; Tienen un hijo con una probabilidad de 20%. ¡¡¡REVISAR!!!
+                                                                     [set humans-age 0 
+                                                                      set color pink   
+                                                                      set susceptible? true  
+                                                                      set infected? false  
+                                                                      set infectious? false 
+                                                                      set immune? false
+                                                                      ifelse random-float 10 < 5 [set male? true set female? false set shape "person"]
+                                                                                                 [set male? false set female? true set shape "woman"]]
+                                                                     
+   ]]]]]] 
+end 
